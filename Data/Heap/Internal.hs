@@ -28,12 +28,12 @@ module Data.Heap.Internal
     ) where
 
 import Control.Exception
-import Data.Foldable ( Foldable(..), foldl' )
+import Data.Foldable ( Foldable(foldl, foldr, foldMap), foldl' )
 import Data.List ( groupBy, sortBy )
 import Data.Monoid
 import Data.Ord
 import Data.Typeable
-import Prelude hiding ( foldl, span, splitAt )
+import Prelude hiding ( foldl, foldr, span, splitAt, foldMap )
 import Text.Read
 
 -- | The basic heap type. It stores priority-value pairs @(prio, val)@ and

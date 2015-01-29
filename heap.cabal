@@ -1,5 +1,5 @@
 Name:                heap
-Version:             1.0.1
+Version:             1.0.2
 
 Category:            Data Structures
 Synopsis:            Heaps in Haskell
@@ -17,6 +17,10 @@ Build-Type:          Simple
 Cabal-Version:       >= 1.10
 Tested-With:         GHC == 7.8.3
 Extra-Source-Files:  changes
+
+Source-Repository head
+  Type: git
+  Location: git://github.com/3of8/heap.git
 
 Flag Test
   Description:       Build a binary running test cases
