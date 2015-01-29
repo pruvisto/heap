@@ -1,0 +1,7 @@
+Latest version: 1.0.1
+
+1.0.0 --> 1.0.1
+===============
+- set Data.Heap.Item to Trustworthy to enable usage of Data.Heap in Safe Haskell (trustworthy is required due to rewrite rules)
+- changed the INLINE pragma for splitF to INLINE[1] (GHC warned about the rule possible not firing)
+- fixed QuickCheck tests to work with QuickCheck > 2.2
