@@ -1,5 +1,5 @@
 Name:                heap
-Version:             1.0.2
+Version:             1.0.3
 
 Category:            Data Structures
 Synopsis:            Heaps in Haskell
@@ -15,17 +15,12 @@ Maintainer:          Manuel Eberl (last name + m _at_ in.tum.de)
 
 Build-Type:          Simple
 Cabal-Version:       >= 1.10
-Tested-With:         GHC == 7.8.3
+Tested-With:         GHC == 7.10.3
 Extra-Source-Files:  changes
 
 Source-Repository head
   Type: git
   Location: git://github.com/3of8/heap.git
-
-Flag Test
-  Description:       Build a binary running test cases
-  Default:           False
-  
 
 Library
   Build-Depends:     base >= 3 && < 5
@@ -45,9 +40,8 @@ Library
     , Trustworthy
   Default-Language:    Haskell2010
 
-Executable heap-tests
-  if !flag( Test )
-    Buildable:       False
+Test-Suite heap-tests
+  Type:			exitcode-stdio-1.0
   Main-Is:
       Test.hs
   Other-Modules:
