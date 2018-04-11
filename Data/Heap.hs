@@ -49,9 +49,6 @@ module Data.Heap
       -- ** Ordered list
     , fromAscList, toAscList
     , fromDescList, toDescList
-
-     -- ** Update value
-    , updateValue
     ) where
 
 import Data.Heap.Item
@@ -169,7 +166,3 @@ fromDescList = I.fromDescList . fmap split
 -- efficient 'fromDescList' function.
 toDescList :: (HeapItem pol item) => Heap pol item -> [item]
 toDescList = reverse . toAscList
-
--- | /O(n log n)/. Update the value of a specific priority.
-updateValue :: Ord prio => HeapT prio val -> prio -> val -> HeapT prio val
-updateValue = I.updateValue
