@@ -3,11 +3,11 @@ Latest version: 1.0.4
 1.0.3 --> 1.0.4
 ===============
 - declared needed Semigroup instance for HeapT's Monoid instance
+- adapted to QuickCheck 2.10
 
 1.0.1 --> 1.0.2
 ===============
 - updated imports for GHC 7.10 (thanks to Michael Baikov for the patch)
-- adapted to QuickCheck 2.10
 
 1.0.0 --> 1.0.1
 ===============
