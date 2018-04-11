@@ -1,4 +1,8 @@
-Latest version: 1.0.2
+Latest version: 1.0.4
+
+1.0.3 --> 1.0.4
+===============
+- declared needed Semigroup instance for HeapT's Monoid instance
 
 1.0.1 --> 1.0.2
 ===============

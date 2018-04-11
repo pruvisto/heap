@@ -30,6 +30,7 @@ module Data.Heap.Internal
 import Control.Exception
 import Data.Foldable ( Foldable(foldl, foldr, foldMap), foldl' )
 import Data.List ( groupBy, sortBy )
+import Data.Semigroup
 import Data.Monoid
 import Data.Ord
 import Data.Typeable
@@ -65,6 +66,9 @@ instance (Ord prio, Ord val) => Eq (HeapT prio val) where
 
 instance (Ord prio, Ord val) => Ord (HeapT prio val) where
     compare = comparing toPairAscList
+
+instance (Ord prio) => Semigroup (HeapT prio val) where
+    (<>) = union
 
 instance (Ord prio) => Monoid (HeapT prio val) where
     mempty  = empty
