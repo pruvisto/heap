@@ -9,7 +9,7 @@ import Test.QuickCheck
 main :: IO ()
 main = do
     putStrLn "Ensuring assertions are not ignored:"
-    result <- quickCheckWithResult (Args Nothing 1 1 1 True) $ expectFailure (assert False True)
+    result <- quickCheckWithResult (Args Nothing 1 1 1 True maxBound) $ expectFailure (assert False True)
     putStrLn ""
     case result of
         (Success _ _ _) -> do
