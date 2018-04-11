@@ -25,17 +25,16 @@ module Data.Heap.Internal
       -- * Conversion
     , fromList, toList
     , fromDescList, toAscList
-    , updateValue
     ) where
 
-import           Control.Exception
-import           Data.Foldable     (Foldable (foldMap, foldl, foldr), foldl')
-import           Data.List         (groupBy, sortBy)
-import           Data.Monoid
-import           Data.Ord
-import           Data.Typeable
-import           Prelude           hiding (foldMap, foldl, foldr, span, splitAt)
-import           Text.Read
+import Control.Exception
+import Data.Foldable ( Foldable(foldl, foldr, foldMap), foldl' )
+import Data.List ( groupBy, sortBy )
+import Data.Monoid
+import Data.Ord
+import Data.Typeable
+import Prelude hiding ( foldl, foldr, span, splitAt, foldMap )
+import Text.Read
 
 -- | The basic heap type. It stores priority-value pairs @(prio, val)@ and
 -- always keeps the pair with minimal priority on top. The value associated to
@@ -83,20 +82,6 @@ instance (Ord prio) => Foldable (HeapT prio) where
     foldMap f = foldMap f . fmap snd . toAscList
     foldr f z = foldl (flip f) z . fmap snd . reverse . toAscList
     foldl f z = foldl f z . fmap snd . toAscList
-
--- | /O(n log n)/. Update the value of a specific priority
-updateValue :: Ord prio => HeapT prio val -> prio -> val -> HeapT prio val
-updateValue Empty _ _ = Empty
-updateValue heap key val
-  | _priority heap == key = heap{_value = val}
-  | otherwise = heap{_left  =update $ _left heap
-                    ,_right =update $ _right heap}
-  where
-    update Empty = Empty
-    update h
-      | _priority h < key = h
-      | otherwise = updateValue h key val
-
 
 -- | /O(1)/. Is the 'HeapT' empty?
 isEmpty :: HeapT prio val -> Bool
