@@ -34,6 +34,7 @@ import Data.Semigroup
 import Data.Monoid
 import Data.Ord
 import Data.Typeable
+import Data.Bifunctor
 import Prelude hiding ( foldl, foldr, span, splitAt, foldMap )
 import Text.Read
 
@@ -81,6 +82,15 @@ instance Functor (HeapT prio) where
                         , _left  = fmap f (_left heap)
                         , _right = fmap f (_right heap)
                         }
+
+-- f should be a monotonic function
+instance Bifunctor (HeapT) where
+    bimap _ _ Empty = Empty
+    bimap f g heap = heap { _value = g (_value heap)
+                            , _priority = f (_priority heap)
+                            , _left = bimap f g (_left heap)
+                            , _right = bimap f g (_right heap)
+                          }
 
 instance (Ord prio) => Foldable (HeapT prio) where
     foldMap f = foldMap f . fmap snd . toAscList
