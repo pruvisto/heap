@@ -4,6 +4,7 @@ module Test.Heap.Internal
     ) where
 
 import Data.Char
+import Data.Bifunctor
 import Data.Heap.Internal as Heap
 import qualified Data.List as List
 import Test.Heap.Common
@@ -19,6 +20,8 @@ runTests = do
     qc "union" (unionProperty :: HeapT Int Char -> HeapT Int Char -> Bool)
     qc "Functor" (functorProperty (subtract 1000) (*42) :: HeapT Char Int -> Bool)
     qc "fmap" (fmapProperty (subtract 1000) :: HeapT Char Int -> Bool)
+    qc "Bifunctor" (bifunctorProperty toUpper toLower (subtract 1000) (*42) :: HeapT Char Int -> Bool)
+    qc "bimap" (bimapProperty toUpper (subtract 1000) :: HeapT Char Int -> Bool)
     qc "Foldable" (foldableProperty :: HeapT Char Int -> Bool)
     qc "size" sizeProperty
     qc "view" viewProperty
@@ -56,6 +59,9 @@ unionProperty a b = let ab = a `union` b
 
 fmapProperty :: (Ord prio) => (val -> val) -> HeapT prio val -> Bool
 fmapProperty f = leftistHeapProperty . fmap f
+
+bimapProperty :: (Ord prio) => (prio -> prio) -> (val -> val) -> HeapT prio val -> Bool 
+bimapProperty f g = leftistHeapProperty . bimap f g
 
 sizeProperty :: Int -> Bool
 sizeProperty n = let

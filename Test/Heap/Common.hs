@@ -4,6 +4,7 @@ module Test.Heap.Common
     , readShowProperty
     , monoidProperty
     , functorProperty
+    , bifunctorProperty
     , foldableProperty
     ) where
 
