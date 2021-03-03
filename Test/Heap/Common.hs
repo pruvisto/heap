@@ -9,6 +9,7 @@ module Test.Heap.Common
 
 import Data.Foldable ( Foldable(..) )
 import Data.Monoid
+import Data.Bifunctor
 import Prelude hiding ( foldl, foldr )
 import Test.QuickCheck
 
@@ -48,6 +49,13 @@ monoidProperty m1 m2 m3 = let
 functorProperty :: (Functor f, Eq (f a), Eq (f c)) => (b -> c) -> (a -> b) -> f a -> Bool
 functorProperty f g fun = fun == fmap id fun
     && fmap (f . g) fun == fmap f (fmap g fun)
+
+bifunctorProperty :: (Bifunctor p, Eq(p a d), Eq (p c d), Eq (p c f), Eq (p a f)) => (b -> c) -> (a -> b)
+                                                         -> (e -> f) -> (d -> e) -> p a d -> Bool
+bifunctorProperty f g h i bifun = bifun == bimap id id bifun
+    && bimap (f . g) (h . i) bifun == (bimap f h . bimap g i) bifun
+    && first (f . g) bifun == (first f . first g) bifun
+    && second (h . i) bifun == second h ((second i) bifun)
 
 foldableProperty :: (Foldable f, Eq a) => f a -> Bool
 foldableProperty xs = foldl (flip (:)) [] xs == reverse (foldr (:) [] xs)
